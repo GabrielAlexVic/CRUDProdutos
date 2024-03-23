@@ -6,6 +6,12 @@
     <title>CRUDProdutos</title>
 </head>
 <body>
-    teste
+    <?php
+        require_once 'DbContext/PDO.php';
+
+        $pdo = new usePDO();
+        $pdo->createDb();
+        $pdo->createTable();
+    ?>
 </body>
 </html>
