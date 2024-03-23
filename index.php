@@ -12,7 +12,7 @@
             $email = $conn->real_escape_string($_POST['email']);
             $senha = $conn->real_escape_string($_POST['senha']);
 
-            $sql_code = "SELECT * FROM users WHERE email = '$email' AND senha = '$senha' "
+            $sql_code = "SELECT * FROM users WHERE email = '$email' AND password = '$senha'";
             $sql_query = $conn->query($sql_code) or die("Falha na execução do código SQL: " . $conn->error);
 
             $quantidade = $sql_query->num_rows;
@@ -27,10 +27,13 @@
                 $_SESSION['id'] = $usuario['id'];
                 $_SESSION['username'] = $usuario['username'];
 
+                header("Location: home.php");
+
             }else {
                 echo "Falha ao logar! Dados incorretos";
             }
         }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -49,12 +52,12 @@
     <div class="container">
         <div class="main">
         <h1>FAÇA O SEU LOGIN</h1>
-        <form action="process_login.php" method="POST">
+        <form action="" method="POST">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" required>
-            <a href="esqueci_minha_senha.php">esqueci minha senha</a>
+            <a href="esqueci_minha_senha.php">esquaeci minha senha</a>
             <button type="submit"><span>Entrar</span></button>
             <a  href="nao_tenho_cadastro.php">não tenho cadastro</a>
         </form>
