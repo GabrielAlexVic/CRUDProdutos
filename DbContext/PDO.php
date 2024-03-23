@@ -24,9 +24,9 @@ class usePDO {
 		catch(PDOException $e)
 		{
 			echo "Connection failed: " . $e->getMessage() . "<br>";
-			if(strpos($e->getMessage(), "Unknown database 'meubanco'")){
+			if(strpos($e->getMessage(), "Unknown database " . $this->dbname)){
 				echo "Conexão nula, criando o banco pela primeira vez". "<br>";
-				$conn = $this->createDB();
+				$conn = $this->createDb();
 				return $conn;
 			}
 			else
@@ -67,6 +67,62 @@ class usePDO {
 		}
 	}
 
-}
+	function insert($sql){
+		try{
+			$cnx = $this->getInstance();
+			$this->createTable();
+			$cnx->exec($sql);
+		}
+		catch(PDOException $e)
+		{
+			return "Falha ao Inserir dados". "<br>";
+		}
+	}
 
+	function select($sql){
+
+		try{
+			$cnx = $this->getInstance();
+			$this->createTable();
+			$result = $cnx->query($sql);
+
+			return $result;
+		}
+		catch(PDOException $e)
+		{
+			echo $sql . "<br>" . $e->getMessage();
+		}
+	}
+
+	function update($sql){
+
+		try{
+			$cnx = $this->getInstance();
+			$this->createTable();
+			$result = $cnx->query($sql);
+
+			return $result;
+		}
+		catch(PDOException $e)
+		{
+			echo $sql . "<br>" . $e->getMessage();
+		}
+	}
+
+	function delete($sql){
+
+		try{
+			$cnx = $this->getInstance();
+			$this->createTable();
+			$result = $cnx->query($sql);
+
+			return $result;
+		}
+		catch(PDOException $e)
+		{
+			echo $sql . "<br>" . $e->getMessage();
+		}
+	}
+
+}
 ?>
