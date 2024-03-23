@@ -1,18 +1,18 @@
 <?php
     include("conexao.php");
 
-    if(isset($_POST['email']) || isset($_POST['senha'])) {
+    if(isset($_POST['email']) || isset($_POST['password'])) {
 
         if(strlen($_POST['email']) == 0) {
             echo "Preencha seu email";
-        } else if(strlen($_POST['senha']) == 0) {
+        } else if(strlen($_POST['password']) == 0) {
             echo "Preencha seu senha";
         } else {
 
             $email = $conn->real_escape_string($_POST['email']);
-            $senha = $conn->real_escape_string($_POST['senha']);
+            $password = $conn->real_escape_string($_POST['password']);
 
-            $sql_code = "SELECT * FROM users WHERE email = '$email' AND password = '$senha'";
+            $sql_code = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
             $sql_query = $conn->query($sql_code) or die("Falha na execução do código SQL: " . $conn->error);
 
             $quantidade = $sql_query->num_rows;
@@ -55,11 +55,11 @@
         <form action="" method="POST">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
-            <label for="senha">Senha:</label>
-            <input type="password" id="senha" name="senha" required>
+            <label for="password">password:</label>
+            <input type="password" id="password" name="password" required>
             <a href="esqueci_minha_senha.php">esquaeci minha senha</a>
             <button type="submit"><span>Entrar</span></button>
-            <a  href="nao_tenho_cadastro.php">não tenho cadastro</a>
+            <a href="cadastrarUser.php">não tenho cadastro</a>
         </form>
         </div>
     </div>
