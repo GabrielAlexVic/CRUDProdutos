@@ -7,41 +7,52 @@ $pdo = new usePDO();
 $pdo->createDb();
 $pdo->createTable();
 
-// switch ($q) {
-//     case "readPessoas":
-//     	$result = $pdo->select("SELECT * FROM pessoa");
-// 		print(json_encode($result->fetchAll()));
-//         break;
-//     case "update":
-//     	$id = $_REQUEST["id"];
-//     	$nome = $_REQUEST["nome"];
-//     	$idade = $_REQUEST["idade"];
-//     	$sexo = $_REQUEST["sexo"];
-//     	$estado_civil = $_REQUEST["estado_civil"];
-//     	$result = $pdo->update("UPDATE pessoa SET nome='$nome', idade='$idade', sexo='$sexo', estado_civil='$estado_civil' WHERE id='$id'");
-//         echo "Registro id $id atualizado com sucesso";
-//         break;
-//     case "insert":
-// 		$nome = $_REQUEST["nome"];
-//     	$idade = $_REQUEST["idade"];
-//     	$sexo = $_REQUEST["sexo"];
-//     	$estado_civil = $_REQUEST["estado_civil"];
-//     	$message = $pdo->insert("INSERT INTO pessoa (nome, idade, sexo, estado_civil, endereco, usuario, senha) 
-//     		VALUES ('$nome', $idade, '$sexo', '$estado_civil', 'rua B no 02', 'jose_vieira','".sha1(456789)."')");
-//     		//outros campos são ficticios somente para evitarmos de redesenhar o banco 
+switch ($q) {
+    case "readUsers":
+    	$result = $pdo->select("SELECT * FROM user");
 
-//         if ($message != NULL) {
-//             //var_dump($message);
-//             header("location: inserir.php?mensagem=$message");
-//         }else{
-//             header("location: inserir.php?mensagem=Registro inserido com sucesso");
-//         }
-//         break;
-//     case "delete":
-//     	$id = $_REQUEST["id"];
-//     	$pdo->delete("DELETE FROM pessoa WHERE id='$id'");
-//     	echo "Registro deletado com sucesso";
-//     	break;
-//}
+		print(json_encode($result->fetchAll()));
+        break;
+
+    case "update":
+    	$id = $_REQUEST["id"];
+    	$userName = $_REQUEST["userName"];
+    	$fullName = $_REQUEST["fullName"];
+    	$email = $_REQUEST["email"];
+
+    	$result = $pdo->update("UPDATE user SET userName='$userName', fullName='$fullName', email='$email' WHERE id='$id'");
+        echo "Registro id $id atualizado com sucesso";
+        break;
+
+    case "insert":
+		$userName = $_REQUEST["userName"];
+    	$fullName = $_REQUEST["fullName"];
+    	$email = $_REQUEST["email"];
+        $password = $_REQUEST["password"];
+        $passwordConfirm = $_REQUEST["passwordConfirm"];
+
+        if($password != $passwordConfirm) {
+            echo("<script>alert('O campo password confirm precisar ser igual ao campo password'); window.location='../components/signup.html';</script>");
+            break;
+        }
+
+    	$message = $pdo->insert("INSERT INTO  user (userName, fullName, email, passwordHash) 
+    		VALUES ('$userName', '$fullName', '$email','".sha1($password)."')");
+
+        if ($message != NULL) {
+            //var_dump($message);
+            echo("<script>alert('Erro ao inserir registro: " . $message . "'); window.location='../components/signup.html';</script>");
+            //header("location: /components/signup.html");
+        }else{
+            echo("<script>alert('Registro inserido com sucesso!'); window.location='../components/login.php';</script>");
+        }
+        break;
+        
+    case "delete":
+    	$id = $_REQUEST["id"];
+    	$pdo->delete("DELETE FROM user WHERE id='$id'");
+    	echo "Registro deletado com sucesso";
+    	break;
+}
 
 ?>

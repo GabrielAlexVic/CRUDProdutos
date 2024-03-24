@@ -12,37 +12,30 @@
 </head>
 
 <body>
-    <?php
-    // require_once 'DbContext/PDO.php';
-
-    // $pdo = new usePDO();
-    // $pdo->createDb();
-    // $pdo->createTable();
-    ?>
     <main class="container">
         <div class="row min-vh-100 justify-content-center align-items-center">
-            <form>
+            <form method="POST" action="../Repositories/operations.php?q=insert">
             <div class="form-floating mb-2">
-                    <input type="fullName" class="form-control" id="floatingInputFullName" placeholder="Gabriel Victório">
+                    <input type="fullName" class="form-control" placeholder="Gabriel Victório" name="fullName">
                     <label for="floatingInput">Full name</label>
                 </div>
             <div class="form-floating  mb-2">
-                    <input type="userName" class="form-control" id="floatingInputUserName" placeholder="GabrielzinhoTeclados">
+                    <input type="userName" class="form-control" placeholder="GabrielzinhoTeclados" name="userName">
                     <label for="floatingInput">User name</label>
                 </div>
                 <div class="form-floating  mb-2">
-                    <input type="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com">
+                    <input type="email" class="form-control" placeholder="name@example.com" name="email">
                     <label for="floatingInput">Email address</label>
                 </div>
                 <div class="form-floating  mb-2">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <input type="password" class="form-control" placeholder="Password" name="password">
                     <label for="floatingPassword">Password</label>
                 </div>
                 <div class="form-floating  mb-4">
-                    <input type="passwordConfirm" class="form-control" id="floatingPasswordConfirm" placeholder="PasswordConfirm">
+                    <input type="password" class="form-control" placeholder="PasswordConfirm" name="passwordConfirm">
                     <label for="floatingPassword">Password Confirm</label>
                 </div>
-                <button class="btn btn-primary w-100 py-2" type="submit">Sign Up</button>
+                <input class="btn btn-primary w-100 py-2" type="submit" value="Sign Up">
             </form>
         </div>
     </main>
