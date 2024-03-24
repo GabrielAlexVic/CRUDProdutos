@@ -30,7 +30,10 @@
                     <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
                     <label for="floatingPassword">Password</label>
                 </div>
-                <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+                <div class="d-flex justify-content-between align-items-center">
+                    <input style="width: 20%;" class="btn btn-primary" type="submit" value="Login">
+                    <a href="signUp.html" class="btn btn-danger">Sign Up</a>
+                </div>
             </form>
         </div>
     </main>

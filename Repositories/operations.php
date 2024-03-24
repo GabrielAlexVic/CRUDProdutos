@@ -36,16 +36,25 @@ switch ($q) {
             break;
         }
 
+        if($pdo->exist("SELECT * FROM user where email='$email'")){
+            echo("<script>alert('Já existe um usuario cadastrado com este email'); window.location='../components/signup.html';</script>");
+            break;
+        }
+
+        if($pdo->exist("SELECT * FROM user where userName='$userName'")){
+            echo("<script>alert('Já existe um usuario cadastrado com este user name'); window.location='../components/signup.html';</script>");
+            break;
+        }
+
     	$message = $pdo->insert("INSERT INTO  user (userName, fullName, email, passwordHash) 
     		VALUES ('$userName', '$fullName', '$email','".sha1($password)."')");
 
-        if ($message != NULL) {
-            //var_dump($message);
+        if ($message != NULL)
             echo("<script>alert('Erro ao inserir registro: " . $message . "'); window.location='../components/signup.html';</script>");
-            //header("location: /components/signup.html");
-        }else{
+
+        else
             echo("<script>alert('Registro inserido com sucesso!'); window.location='../components/login.php';</script>");
-        }
+
         break;
         
     case "delete":

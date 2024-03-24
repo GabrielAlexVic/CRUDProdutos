@@ -80,7 +80,6 @@ class usePDO {
 	}
 
 	function select($sql){
-
 		try{
 			$cnx = $this->getInstance();
 			$this->createTable();
@@ -95,7 +94,6 @@ class usePDO {
 	}
 
 	function update($sql){
-
 		try{
 			$cnx = $this->getInstance();
 			$this->createTable();
@@ -110,7 +108,6 @@ class usePDO {
 	}
 
 	function delete($sql){
-
 		try{
 			$cnx = $this->getInstance();
 			$this->createTable();
@@ -120,6 +117,22 @@ class usePDO {
 		}
 		catch(PDOException $e)
 		{
+			echo $sql . "<br>" . $e->getMessage();
+		}
+	}
+
+	function exist($sql) {
+		try {
+			$cnx = $this->getInstance();
+			$this->createTable();
+			$result = $cnx->query($sql);
+	
+			if ($result && $result->rowCount() > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch(PDOException $e) {
 			echo $sql . "<br>" . $e->getMessage();
 		}
 	}
