@@ -9,7 +9,7 @@ session_start();
 $userName = $_POST['userName'];
 $password = $_POST['password'];
 
-if($pdo->login($userName, $password) == 1)
+if($pdo->login($userName, $password) != 0)
 {
 	$_SESSION['userName'] = $userName;
 	$_SESSION['password'] = $password;

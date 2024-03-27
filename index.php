@@ -14,7 +14,7 @@
       {
         unset($_SESSION['userName']);
         unset($_SESSION['password']);
-        header('location:Components/login.php');
+        header('location:Components\login.php');
       }
       
       $logado = $_SESSION['userName'];
@@ -31,7 +31,7 @@
       print_r($_SESSION);
     ?>
     <br>
-    <a href="logout.php"><button>Sair</button></a>
+    <a href="Authentication\logout.php"><button>Sair</button></a>
 </body>
 
 </html>
