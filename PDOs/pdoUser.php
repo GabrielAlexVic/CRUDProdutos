@@ -67,11 +67,28 @@ class usePDO {
 		}
 	}
 
-	function insert($sql){
+	function login($userName, $password){
 		try{
 			$cnx = $this->getInstance();
 			$this->createTable();
-			$cnx->exec($sql);
+			
+			$query = ("SELECT * FROM user WHERE userName='$userName' AND password='$password'");
+
+			return $cnx->query($query);	
+		}
+		catch(PDOException $e)
+		{
+			return "Username e/ou password incorreto";
+		}
+	}
+
+	function insert($userName, $fullName, $email, $password){
+		try{
+			$cnx = $this->getInstance();
+			$this->createTable();
+			
+			$query = ("INSERT INTO  user (userName, fullName, email, passwordHash) VALUES ('$userName', '$fullName', '$email','$password')");
+			$cnx->exec($query);	
 		}
 		catch(PDOException $e)
 		{
@@ -79,45 +96,51 @@ class usePDO {
 		}
 	}
 
-	function select($sql){
+	function select(){
 		try{
 			$cnx = $this->getInstance();
 			$this->createTable();
-			$result = $cnx->query($sql);
+
+			$query = ("SELECT * FROM user");
+			$result = $cnx->query($query);
 
 			return $result;
 		}
 		catch(PDOException $e)
 		{
-			echo $sql . "<br>" . $e->getMessage();
+			echo $query . "<br>" . $e->getMessage();
 		}
 	}
 
-	function update($sql){
+	function update($userName, $fullName, $email, $id){
 		try{
 			$cnx = $this->getInstance();
 			$this->createTable();
-			$result = $cnx->query($sql);
+
+			$query = ("UPDATE user SET userName='$userName', fullName='$fullName', email='$email' WHERE id='$id'");
+			$result = $cnx->query($query);
 
 			return $result;
 		}
 		catch(PDOException $e)
 		{
-			echo $sql . "<br>" . $e->getMessage();
+			echo $query . "<br>" . $e->getMessage();
 		}
 	}
 
-	function delete($sql){
+	function delete($id){
 		try{
 			$cnx = $this->getInstance();
 			$this->createTable();
-			$result = $cnx->query($sql);
+
+			$query = ("DELETE FROM user WHERE id='$id'");
+			$result = $cnx->query($query);
 
 			return $result;
 		}
 		catch(PDOException $e)
 		{
-			echo $sql . "<br>" . $e->getMessage();
+			echo $query . "<br>" . $e->getMessage();
 		}
 	}
 

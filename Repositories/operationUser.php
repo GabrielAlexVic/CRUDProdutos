@@ -1,5 +1,5 @@
 <?php 
-require_once ("../DbContext/PDO.php");
+require_once ("../PDOs/pdoUser.php");
 
 $q = $_REQUEST["q"];
 
@@ -8,8 +8,15 @@ $pdo->createDb();
 $pdo->createTable();
 
 switch ($q) {
+    case "login":
+        $userName = $_REQUEST["userName"];
+        $password = $_REQUEST["password"];
+
+        $result = $pdo->login($userName, sha1($password));
+        break;
+
     case "readUsers":
-    	$result = $pdo->select("SELECT * FROM user");
+    	$result = $pdo->select();
 
 		print(json_encode($result->fetchAll()));
         break;
@@ -20,11 +27,11 @@ switch ($q) {
     	$fullName = $_REQUEST["fullName"];
     	$email = $_REQUEST["email"];
 
-    	$result = $pdo->update("UPDATE user SET userName='$userName', fullName='$fullName', email='$email' WHERE id='$id'");
+    	$result = $pdo->update($userName, $fullName, $email, $id);
         echo "Registro id $id atualizado com sucesso";
         break;
 
-    case "insert":
+    case "signUp":
 		$userName = $_REQUEST["userName"];
     	$fullName = $_REQUEST["fullName"];
     	$email = $_REQUEST["email"];
@@ -46,8 +53,7 @@ switch ($q) {
             break;
         }
 
-    	$message = $pdo->insert("INSERT INTO  user (userName, fullName, email, passwordHash) 
-    		VALUES ('$userName', '$fullName', '$email','".sha1($password)."')");
+    	$message = $pdo->insert($userName, $fullName, $email, sha1($password));
 
         if ($message != NULL)
             echo("<script>alert('Erro ao inserir registro: " . $message . "'); window.location='../components/signup.html';</script>");
@@ -59,7 +65,7 @@ switch ($q) {
         
     case "delete":
     	$id = $_REQUEST["id"];
-    	$pdo->delete("DELETE FROM user WHERE id='$id'");
+    	$pdo->delete($id);
     	echo "Registro deletado com sucesso";
     	break;
 }
